@@ -1,0 +1,25 @@
+name: Rust
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore: ['swift/**']
+  pull_request:
+    branches: [ master ]
+    paths-ignore: ['swift/**']
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install nightly rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        components: rustfmt, clippy
+    - name: Build
+      run: cargo build --verbose
